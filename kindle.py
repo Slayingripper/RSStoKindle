@@ -21,32 +21,19 @@ now = datetime.datetime.now()
 currentdate = now.strftime("%Y-%m-%d")
 
 
-
-# Define the RSS feed URLs
-#feed_urls = ['https://www.forbes.com/real-time/']
+# Get the RSS feed URLs from the config file
 feed_urls = [config.get('RSS', 'feed')]
 # Parse the RSS feeds
 entries = []
 for feed_url in feed_urls:
     feed = feedparser.parse(feed_url)   
-    #change encoding to utf-8
+    
     entries += feed.entries
    
 
 
 #Generate a PDF File with the RSS entries
 
-
-
-# Generate the PDF file
-# pdf = FPDF()
-# # use leter size paper
-# pdf.add_page(orientation = 'P')
-# pdf.set_font("Times", size=10)
-# for entry in entries:
-#     pdf.cell(0, 10, txt=entry.title + '\n' )
-#     pdf.cell(0, 10, txt=entry.summary, ln=1, align='C')
-# pdf.output(currentdate + "_news.pdf")
 pdf_file = currentdate + '_news.pdf'
 c = canvas.Canvas(pdf_file, pagesize=letter)
 c.setFont('Helvetica', 12)
@@ -66,8 +53,6 @@ for entry in feed.entries:
     #draw a divider line
     c.line(50, y, 550, y)
     y -= 20
-
-
     #if title is longer than 100 characters split it into 100 character chunks
     if len(title) > 90:
         title = [title[i:i+90] for i in range(0, len(title), +90)]
@@ -99,9 +84,6 @@ for entry in feed.entries:
 
 c.save()
 # Define email parameters
-#hotmail stmp server
-
-
 smtp_server = config.get('Email', 'smtp_server')
 print(smtp_server)
 smtp_port = config.get('Email', 'smtp_port')
