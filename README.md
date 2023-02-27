@@ -21,6 +21,19 @@ Edit the config.ini file to include your:
 - STMP server
 - Feed list 
 
+# Creating a cron job
+
+To create a daily cron job to send your feeds to your kindle run the following command:
+```bash
+crontab -e
+```
+Then add the following line to the end of the file:
+```bash
+6 0 * * * python3 /path/to/RSStoKindle/kindle.py
+```
+This will run the script every day at 6AM (change according to your preferences).
+
+
 ### ToDo
 - [ ] Add support for multiple kindle email addresses
 - [ ] Fix issue with some feeds containing non-utf8 characters no compiling correctly
