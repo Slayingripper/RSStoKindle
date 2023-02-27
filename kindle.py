@@ -136,4 +136,4 @@ def send_news():
     smtp.sendmail(from_email, to_email, msg.as_string())
     smtp.quit()
 
-
+send_news()
