@@ -13,7 +13,7 @@ from reportlab.pdfgen import canvas
 #use ini file to store confiuguration
 
 config = ConfigParser()
-config.read('nosync.ini')
+config.read('config.ini')
 #get current date
 import datetime
 now = datetime.datetime.now()
