@@ -60,12 +60,23 @@ for entry in feed.entries:
     if entry.has_key('media_content'):
         image = entry.media_content[0]['url']
         #center the image above text
-        c.drawImage(image, 50, y-70, width=100, height=100)
+        c.drawImage(image, 50, y-100, width=100, height=100)
         y -= 100
+    
+    #draw a divider line
+    c.line(50, y, 550, y)
+    y -= 20
 
-    #draw title bold with 20 point font
-    c.drawString(50, y, title)
-    y -= 30
+
+    #if title is longer than 100 characters split it into 100 character chunks
+    if len(title) > 90:
+        title = [title[i:i+90] for i in range(0, len(title), +90)]
+        for i in title:
+            c.drawString(50, y, i)
+            y -= 30
+    else:
+            c.drawString(50, y, title)
+            y -= 30
     # check if summary contains any html tags and links using a regex
     import re
     if re.search('<.*?>', summary):
